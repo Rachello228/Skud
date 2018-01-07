@@ -31,6 +31,7 @@ namespace Skud
             InitializeComponent();
             try
             {
+                MessageBox.Show("dsfsdfsd");
                 if (!config.AppSettings.Settings.AllKeys.Contains("SqlServerName"))
                 {
                     string SqlServerName = string.Empty;
