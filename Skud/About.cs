@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Skud
 {
-    partial class AboutBox1 : Form
+    partial class About : Form
     {
-        public AboutBox1()
+        public About()
         {
             InitializeComponent();
             this.Text = String.Format("О программе СКУД");

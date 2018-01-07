@@ -20,13 +20,13 @@ using Microsoft.VisualBasic;
 
 namespace Skud
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         SerialPort selectedPort;
         System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
         SqlConnectionStringBuilder sqlConnection;
         Context context;
-        public Form1()
+        public Main()
         {
             InitializeComponent();
             try
@@ -66,7 +66,7 @@ namespace Skud
             context.Jobs.Load();
             GetAllSerialPorts();
         }
-        private static bool IsServerConnected(string connectionString)
+        public static bool IsServerConnected(string connectionString)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -249,7 +249,7 @@ namespace Skud
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new AboutBox1().ShowDialog();
+            new About().ShowDialog();
         }
     }
 }

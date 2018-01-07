@@ -1,6 +1,6 @@
 ﻿namespace Skud
 {
-    partial class AboutBox1
+    partial class About
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -27,7 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
