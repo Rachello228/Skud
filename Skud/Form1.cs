@@ -122,6 +122,7 @@ namespace Skud
         {
             MessageBox.Show("dsfsdfsdf");
             int a = 12;
+            int b = 34;
             if (config.AppSettings.Settings.AllKeys.Contains("SerialPort") && config.AppSettings.Settings["SerialPort"].Value.Length > 0)
                 ReadFromController(config.AppSettings.Settings["SerialPort"].Value);
             else
