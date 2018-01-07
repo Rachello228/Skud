@@ -85,6 +85,7 @@ namespace Skud
 
         public void GetAllSerialPorts()
         {
+            MessageBox.Show("sdfsdfsd");
             foreach (String port in SerialPort.GetPortNames())
             {
                 ToolStripMenuItem comPort = new ToolStripMenuItem();
