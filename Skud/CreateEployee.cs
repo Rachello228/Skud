@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Entity;
 using System.IO;
+using System.Drawing.Imaging;
+using System.Data.Entity.Validation;
 
 namespace Skud
 {
     public partial class CreateEployee : Form
     {
         Context context;
-        string path = String.Empty;
+        bool fileSelect = false;
         public CreateEployee(Context context)
         {
             InitializeComponent();
@@ -46,27 +48,49 @@ namespace Skud
                 emp.Name = textBox2.Text;
                 emp.Surname = textBox1.Text;
                 emp.Patronymic = textBox3.Text;
-                if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\Images"))
-                    Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\Images");
-                if (!string.IsNullOrEmpty(path))
-                    File.Copy(openFileDialog1.FileName, Directory.GetCurrentDirectory() + @"\Images\" + openFileDialog1.SafeFileName);
-                emp.Photo = path;
-                context.Employees.Add(emp);
-                context.SaveChanges();
-                this.Close();
+                if (fileSelect)
+                    emp.Photo = ConvertToByteArray(Image.FromFile(openFileDialog1.FileName));
+                if ((!fileSelect && MessageBox.Show("Вы не выбрали фото, продолжить?", "СКУД", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) || fileSelect)
+                {
+                    context.Employees.Add(emp);
+                    context.SaveChanges();
+                    this.Close();
+                }
+            }
+            catch(DbEntityValidationException)
+            {
+                MessageBox.Show("Заполните ФИО");
+            }
+            catch (Exception ex)
+            { 
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public byte[] ConvertToByteArray(Image img)
+        {
+            byte[] ret = null;
+            try
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    img.Save(ms, img.RawFormat);
+                    ret = ms.ToArray();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+            return ret;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                path = openFileDialog1.SafeFileName;
                 pictureBox1.Load(openFileDialog1.FileName);
+                fileSelect = true;
             }
         }
     }

@@ -22,6 +22,7 @@ namespace Skud
     public class ExtRecord
     {
         public string FIO { get; set; }
+        public byte[] Image { get; set; }
         public string In { get; set; }
         public string Out { get; set; }
         public int Time { get; set; }

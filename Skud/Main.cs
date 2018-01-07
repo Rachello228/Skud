@@ -235,7 +235,7 @@ namespace Skud
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Test("458");
+            Test("457675675");
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -27,10 +27,9 @@ namespace Skud
                 label9.Text = job;
                 label10.Text = status;
                 label10.ForeColor = status == "Вход" ? Color.Green : Color.Red;
-                if (!string.IsNullOrEmpty(emp.Photo))
-                    pictureBox1.Load(Directory.GetCurrentDirectory() + @"\Images\" + emp.Photo);
+                if (emp.Photo != null)
+                    pictureBox1.Image = employee.GetImage;
             }
-            catch (DirectoryNotFoundException) { }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());

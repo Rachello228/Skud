@@ -139,7 +139,7 @@
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmployeeReport.rdlc" />
+    <EmbeddedResource Include="Report1.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\DataForReport.datasource" />
     <None Include="Properties\Settings.settings">

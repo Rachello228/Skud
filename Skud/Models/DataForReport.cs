@@ -36,6 +36,7 @@ namespace Skud
                 Employee emp = context.Employees.Find(rec.Employee);
                 ExtRecord extendRec = new ExtRecord();
                 extendRec.Date = rec.Date.ToShortDateString();
+                extendRec.Image = emp.Photo;
                 extendRec.FIO = emp.FullName;
                 extendRec.In = rec.In.ToString(@"HH\:mm");
                 extendRec.Out = rec.Out.HasValue ? rec.Out.Value.ToString(@"HH\:mm") : null;
