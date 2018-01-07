@@ -120,6 +120,7 @@ namespace Skud
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            Debug.Print("fddg");
             if (config.AppSettings.Settings.AllKeys.Contains("SerialPort") && config.AppSettings.Settings["SerialPort"].Value.Length > 0)
                 ReadFromController(config.AppSettings.Settings["SerialPort"].Value);
             else
