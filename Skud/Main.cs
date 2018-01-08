@@ -22,7 +22,6 @@ namespace Skud
 {
     public partial class Main : Form
     {
-        SerialPort selectedPort;
         System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
         SqlConnectionStringBuilder sqlConnection;
         Context context;
@@ -250,6 +249,12 @@ namespace Skud
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
+        }
+
+        private void сотрудникиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Emploees emps = new Emploees();
+            emps.Show();
         }
     }
 }

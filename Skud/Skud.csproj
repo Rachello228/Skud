@@ -89,6 +89,12 @@
     <Compile Include="CreateEployee.Designer.cs">
       <DependentUpon>CreateEployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Emploees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Emploees.Designer.cs">
+      <DependentUpon>Emploees.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     <EmbeddedResource Include="CreateEployee.resx">
       <DependentUpon>CreateEployee.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Emploees.resx">
+      <DependentUpon>Emploees.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EmployeeInfo.resx">
       <DependentUpon>EmployeeInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,7 +168,10 @@
     <None Include="Resources\usb-connector.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ok2.png" />
+    <None Include="Resources\newspaper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\specialist-user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
