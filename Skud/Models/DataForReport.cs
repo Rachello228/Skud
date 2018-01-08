@@ -19,21 +19,21 @@ namespace Skud
             GetData(context.Journal.ToList(), context);
         }
 
-        public DataForReport(Context context, long employee)
+        public DataForReport(Context context, int employee)
         {
-            GetData(context.Journal.Where(j => j.Employee == employee).ToList(), context);
+            GetData(context.Journal.Where(j => j.EmployeeId == employee).ToList(), context);
         }
 
-        public DataForReport(Context context, long employee, DateTime from, DateTime to)
+        public DataForReport(Context context, int employee, DateTime from, DateTime to)
         {
-            GetData(context.Journal.Where(j => DbFunctions.TruncateTime(j.Date) >= from.Date.Date && DbFunctions.TruncateTime(j.Date) <= to.Date.Date && j.Employee == employee).ToList(), context);
+            GetData(context.Journal.Where(j => DbFunctions.TruncateTime(j.Date) >= from.Date.Date && DbFunctions.TruncateTime(j.Date) <= to.Date.Date && j.EmployeeId == employee).ToList(), context);
         }
 
         public void GetData(List<JournalRecord> records, Context context)
         {
             foreach (JournalRecord rec in records)
             {
-                Employee emp = context.Employees.Find(rec.Employee);
+                Employee emp = context.Employees.Find(rec.EmployeeId);
                 ExtRecord extendRec = new ExtRecord();
                 extendRec.Date = rec.Date.ToShortDateString();
                 extendRec.Image = emp.Photo;

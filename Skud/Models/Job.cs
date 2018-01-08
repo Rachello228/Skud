@@ -11,5 +11,7 @@ namespace Skud
     {
         public int JobId { get; set; }
         public string JobDescription { get; set; }
+
+        public ICollection<Employee> Employees { get; set; }
     }
 }

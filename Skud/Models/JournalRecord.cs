@@ -13,7 +13,9 @@ namespace Skud
 
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public long Employee { get; set; }
+        [ForeignKey("Employee")]
+        public int EmployeeId { get; set; }
+        public Employee Employee { get; set; }
         public DateTime In { get; set; }
         public DateTime? Out { get; set; }
 

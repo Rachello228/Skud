@@ -44,7 +44,7 @@ namespace Skud
             {
                 Employee emp = new Employee();
                 emp.CardId = long.Parse(textBox4.Text);
-                emp.Job = (int)comboBox1.SelectedValue;
+                emp.JobId = (int)comboBox1.SelectedValue;
                 emp.Name = textBox2.Text;
                 emp.Surname = textBox1.Text;
                 emp.Patronymic = textBox3.Text;

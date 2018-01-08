@@ -12,7 +12,7 @@ namespace Skud
 {
     public class Employee
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
         public long CardId { get; set; }
         public byte[] Photo { get; set; }
         [Required]
@@ -21,8 +21,14 @@ namespace Skud
         public string Surname { get; set; }
         [Required]
         public string Patronymic { get; set; }
+        [NotMapped]
         public string FullName { get { return Surname + " " + Name + " " + Patronymic; } }
-        public int Job { get; set; }
+        [ForeignKey("Job")]
+        public int JobId { get; set; }
+        public Job Job { get; set; }
+
+        public ICollection<JournalRecord> JournalRecords { get; set; }
+        [NotMapped]
         public Image GetImage { get { return byteArrayToImage(Photo); } }
         public Image byteArrayToImage(byte[] bytesArr)
         {

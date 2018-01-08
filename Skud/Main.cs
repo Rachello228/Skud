@@ -40,10 +40,11 @@ namespace Skud
                         SqlServerName = Interaction.InputBox("Введите имя SQL сервера", "СКУД", "");
                         sqlConnection = new SqlConnectionStringBuilder();
                         sqlConnection.DataSource = SqlServerName;
-                        sqlConnection.InitialCatalog = "Journal";
+                        //sqlConnection.InitialCatalog = "Journal";
                         sqlConnection.IntegratedSecurity = true;
                         IsConnected = IsServerConnected(sqlConnection.ConnectionString); 
                     }
+                    sqlConnection.InitialCatalog = "Journal";
                     config.AppSettings.Settings.Add("SqlServerName", SqlServerName);
                     config.Save(ConfigurationSaveMode.Modified);
                 }
@@ -144,7 +145,7 @@ namespace Skud
             try
             {
                 long CardId = long.Parse(selectedPort.ReadExisting());
-                Employee employee = context.Employees.Find(CardId);
+                Employee employee = context.Employees.Where(emp => emp.CardId == CardId).FirstOrDefault();
                 if (employee == null)
                 {
                     CreateEployee emp = new CreateEployee(CardId, context);
@@ -152,8 +153,8 @@ namespace Skud
                 }
                 else
                 {
-                    string status = AddJournalRecord(employee.CardId);
-                    string job = context.Jobs.Find(employee.Job).JobDescription;
+                    string status = AddJournalRecord(employee.Id);
+                    string job = context.Jobs.Find(employee.JobId).JobDescription;
                     EmployeeInfo info = new EmployeeInfo(employee, status, job);
                     info.Show();
                 }
@@ -169,7 +170,7 @@ namespace Skud
             try
             {
                 long CardId = long.Parse(id);
-                Employee employee = context.Employees.Find(CardId);
+                Employee employee = context.Employees.Where(emp => emp.CardId == CardId).FirstOrDefault();
                 if (employee == null)
                 {
                     CreateEployee emp = new CreateEployee(CardId, context);
@@ -177,8 +178,8 @@ namespace Skud
                 }
                 else
                 {
-                    string status = AddJournalRecord(employee.CardId);
-                    string job = context.Jobs.Find(employee.Job).JobDescription;
+                    string status = AddJournalRecord(employee.Id);
+                    string job = context.Jobs.Find(employee.JobId).JobDescription;
                     EmployeeInfo info = new EmployeeInfo(employee, status, job);
                     info.ShowDialog();
                 }
@@ -189,21 +190,21 @@ namespace Skud
             }
         }
 
-        public string AddJournalRecord(long CardId)
+        public string AddJournalRecord(int EmpId)
         {
             string status = string.Empty;
             try
             {
                 JournalRecord record = new JournalRecord();
-                record = context.Journal.Where(j => j.Employee == CardId).ToList().LastOrDefault();
+                record = context.Journal.Where(j => j.EmployeeId == EmpId).ToList().LastOrDefault();
                 if(record == null)
                 {
-                    context.Journal.Add(new JournalRecord() { Employee = CardId, Date = DateTime.Now.Date, In = DateTime.Now });
+                    context.Journal.Add(new JournalRecord() { EmployeeId = EmpId, Date = DateTime.Now.Date, In = DateTime.Now });
                     status = "Вход";
                 }
                 else if (record.Out != null) // сотрудник вышел
                 {
-                    context.Journal.Add(new JournalRecord() { Employee = CardId, Date = DateTime.Now.Date, In = DateTime.Now }); // вход
+                    context.Journal.Add(new JournalRecord() { EmployeeId = EmpId, Date = DateTime.Now.Date, In = DateTime.Now }); // вход
                     status = "Вход";
                 }
                 else // сотрудник вошел
@@ -234,14 +235,14 @@ namespace Skud
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Test("457675675");
+            Test("4576756775");
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             for(int i = 1; i <= 1000; i++)
             {
-                context.Journal.Add(new JournalRecord() { Date = DateTime.Now.Date, Employee = 457, In = DateTime.Now, Out = DateTime.Now });
+                context.Journal.Add(new JournalRecord() { Date = DateTime.Now.Date, EmployeeId = 457, In = DateTime.Now, Out = DateTime.Now });
             }
             context.SaveChanges();
         }
@@ -253,7 +254,7 @@ namespace Skud
 
         private void сотрудникиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Emploees emps = new Emploees();
+            Emploees emps = new Emploees(context);
             emps.Show();
         }
     }
