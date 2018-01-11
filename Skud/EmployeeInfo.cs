@@ -15,7 +15,7 @@ namespace Skud
     {
         Employee emp;
         Timer timer;
-        public EmployeeInfo(Employee employee, string status, string job)
+        public EmployeeInfo(Employee employee, string status)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace Skud
                 label6.Text = emp.Surname;
                 label7.Text = emp.Name;
                 label8.Text = emp.Patronymic;
-                label9.Text = job;
+                label9.Text = employee.Job.JobDescription;
                 label10.Text = status;
                 label10.ForeColor = status == "Вход" ? Color.Green : Color.Red;
                 if (emp.Photo != null)
@@ -32,7 +32,7 @@ namespace Skud
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
             finally
             {

@@ -26,6 +26,7 @@ namespace Skud
         [ForeignKey("Job")]
         public int JobId { get; set; }
         public Job Job { get; set; }
+        public bool Status { get; set; }
 
         public ICollection<JournalRecord> JournalRecords { get; set; }
         [NotMapped]

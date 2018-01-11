@@ -12,8 +12,8 @@ namespace Skud
 {
     public partial class Report : Form
     {
-        Context context;
-        public Report(Context context)
+        JournalContext context;
+        public Report(JournalContext context)
         {
             InitializeComponent();
             this.context = context;
@@ -42,6 +42,12 @@ namespace Skud
                 this.dataForReportBindingSource.DataSource = new DataForReport(context, dateTimePicker1.Value.Date, dateTimePicker2.Value.Date);
             else if (checkBox2.Checked)
                 this.dataForReportBindingSource.DataSource = new DataForReport(context, (int)comboBox1.SelectedValue);
+            this.reportViewer1.RefreshReport();
+        }
+
+        private void reportViewer1_ReportRefresh(object sender, CancelEventArgs e)
+        {
+            this.dataForReportBindingSource.DataSource = new DataForReport(context);
             this.reportViewer1.RefreshReport();
         }
     }

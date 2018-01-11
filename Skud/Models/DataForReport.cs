@@ -10,26 +10,26 @@ namespace Skud
 {
     public class DataForReport : List<ExtRecord>
     {
-        public DataForReport(Context context, DateTime from, DateTime to)
+        public DataForReport(JournalContext context, DateTime from, DateTime to)
         {
             GetData(context.Journal.Where(j => DbFunctions.TruncateTime(j.Date) >= from.Date.Date && DbFunctions.TruncateTime(j.Date) <= to.Date.Date).ToList(), context);
         }
-        public DataForReport(Context context)
+        public DataForReport(JournalContext context)
         {
             GetData(context.Journal.ToList(), context);
         }
 
-        public DataForReport(Context context, int employee)
+        public DataForReport(JournalContext context, int employee)
         {
             GetData(context.Journal.Where(j => j.EmployeeId == employee).ToList(), context);
         }
 
-        public DataForReport(Context context, int employee, DateTime from, DateTime to)
+        public DataForReport(JournalContext context, int employee, DateTime from, DateTime to)
         {
             GetData(context.Journal.Where(j => DbFunctions.TruncateTime(j.Date) >= from.Date.Date && DbFunctions.TruncateTime(j.Date) <= to.Date.Date && j.EmployeeId == employee).ToList(), context);
         }
 
-        public void GetData(List<JournalRecord> records, Context context)
+        public void GetData(List<JournalRecord> records, JournalContext context)
         {
             foreach (JournalRecord rec in records)
             {

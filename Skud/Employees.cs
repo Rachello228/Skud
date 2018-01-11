@@ -11,22 +11,22 @@ using System.Windows.Forms;
 
 namespace Skud
 {
-    public partial class Emploees : Form
+    public partial class Employees : Form
     {
-        Context context;
+        JournalContext context;
         Employee emp;
         bool fileSelect = false;
         bool filedelete = false;
-        public Emploees(Context context)
+        public Employees(JournalContext context)
         {
             InitializeComponent();
             this.context = context;
-            comboBox2.DataSource = context.Employees.Local;
-            comboBox1.DataSource = context.Jobs.Local;
             comboBox1.DisplayMember = "JobDescription";
             comboBox1.ValueMember = "JobId";
             comboBox2.DisplayMember = "FullName";
             comboBox2.ValueMember = "Id";
+            comboBox1.DataSource = context.Jobs.Local;
+            comboBox2.DataSource = context.Employees.Local;
             comboBox2.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBox2.AutoCompleteSource = AutoCompleteSource.ListItems;
             
@@ -41,7 +41,7 @@ namespace Skud
                 textBox1.Text = emp.Surname;
                 textBox2.Text = emp.Name;
                 textBox3.Text = emp.Patronymic;
-                comboBox1.SelectedValue = emp.JobId;
+                comboBox1.SelectedItem = emp.Job;
                 if (emp.Photo != null)
                     pictureBox1.Image = emp.GetImage;
                 else
@@ -49,7 +49,7 @@ namespace Skud
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Skud
         {
             try
             {
-                emp.JobId = (int)comboBox1.SelectedValue;
+                emp.Job = (Job)comboBox1.SelectedItem;
                 emp.Name = textBox2.Text;
                 emp.Surname = textBox1.Text;
                 emp.Patronymic = textBox3.Text;
@@ -75,7 +75,7 @@ namespace Skud
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -92,7 +92,7 @@ namespace Skud
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
             return ret;
         }

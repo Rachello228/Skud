@@ -11,14 +11,15 @@ using System.Data.Entity;
 using System.IO;
 using System.Drawing.Imaging;
 using System.Data.Entity.Validation;
+using System.Threading;
 
 namespace Skud
 {
     public partial class CreateEployee : Form
     {
-        Context context;
+        JournalContext context;
         bool fileSelect = false;
-        public CreateEployee(Context context)
+        public CreateEployee(JournalContext context)
         {
             InitializeComponent();
             this.context = context;
@@ -26,9 +27,10 @@ namespace Skud
             comboBox1.DisplayMember = "JobDescription";
             comboBox1.ValueMember = "JobId";
         }
-        public CreateEployee(long id, Context context)
+        public CreateEployee(long id, JournalContext context)
         {
             InitializeComponent();
+            Thread.CurrentThread.TrySetApartmentState(ApartmentState.STA);
             this.context = context;
             textBox4.Text = id.ToString();
             textBox4.Enabled = false;
@@ -48,6 +50,7 @@ namespace Skud
                 emp.Name = textBox2.Text;
                 emp.Surname = textBox1.Text;
                 emp.Patronymic = textBox3.Text;
+                emp.Status = false;
                 if (fileSelect)
                     emp.Photo = ConvertToByteArray(Image.FromFile(openFileDialog1.FileName));
                 if ((!fileSelect && MessageBox.Show("Вы не выбрали фото, продолжить?", "СКУД", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) || fileSelect)
@@ -63,7 +66,7 @@ namespace Skud
             }
             catch (Exception ex)
             { 
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -80,7 +83,7 @@ namespace Skud
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
             return ret;
         }
@@ -92,6 +95,7 @@ namespace Skud
                 pictureBox1.Load(openFileDialog1.FileName);
                 fileSelect = true;
             }
+
         }
     }
 }

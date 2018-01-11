@@ -57,6 +57,7 @@
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.Size = new System.Drawing.Size(1074, 458);
             this.reportViewer1.TabIndex = 0;
+            this.reportViewer1.ReportRefresh += new System.ComponentModel.CancelEventHandler(this.reportViewer1_ReportRefresh);
             // 
             // dateTimePicker1
             // 
