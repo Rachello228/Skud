@@ -164,7 +164,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Skud.Properties.Resources.specialist_user;
+            this.pictureBox1.Image = global::Skud.Properties.Resources.specialist_userpng;
             this.pictureBox1.Location = new System.Drawing.Point(13, 13);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(352, 292);

@@ -73,6 +73,16 @@ namespace Skud.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap engineer {
+            get {
+                object obj = ResourceManager.GetObject("engineer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap newspaper {
             get {
                 object obj = ResourceManager.GetObject("newspaper", resourceCulture);
@@ -86,6 +96,16 @@ namespace Skud.Properties {
         internal static System.Drawing.Bitmap specialist_user {
             get {
                 object obj = ResourceManager.GetObject("specialist-user", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap specialist_userpng {
+            get {
+                object obj = ResourceManager.GetObject("specialist-userpng", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

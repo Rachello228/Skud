@@ -66,7 +66,7 @@
             // 
             // отчетToolStripMenuItem
             // 
-            this.отчетToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("отчетToolStripMenuItem.Image")));
+            this.отчетToolStripMenuItem.Image = global::Skud.Properties.Resources.newspaper;
             this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
             this.отчетToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.отчетToolStripMenuItem.Text = "Отчет";

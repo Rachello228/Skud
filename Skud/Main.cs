@@ -13,7 +13,6 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data.Sql;
-using Microsoft.SqlServer.Management.Smo;
 using System.Data.Entity;
 using System.IO;
 using Microsoft.VisualBasic;
@@ -23,24 +22,21 @@ namespace Skud
 {
     public partial class Main : Form
     {
-        System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
-        public SqlConnectionStringBuilder sqlConnection;
         public JournalContext context;
-        public Thread dataThread;
+        public Thread backgroundThread;
         public static bool connected = false;
         public static bool firstLoad = true;
         public Main()
         {
             InitializeComponent();
-            dataThread = new Thread(new ThreadStart(() =>
+            backgroundThread = new Thread(new ThreadStart(() =>
             {
                 try
                 {
-                    GetSqlServer();
-                    context = new JournalContext(sqlConnection.ConnectionString);
+                    context = new JournalContext();
                     context.Employees.Load();
-                    context.Journal.Load();
                     context.Jobs.Load();
+                    context.JournalRecors.Load();
                     WqlEventQuery query = new WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent");
                     ManagementEventWatcher watcher = new ManagementEventWatcher(query);
                     watcher.EventArrived += Watcher_EventArrived;
@@ -60,46 +56,46 @@ namespace Skud
             GetArduino();
         }
 
-        public void GetSqlServer()
-        {
-            try
-            {
-                string SqlServerName = string.Empty;
-                bool IsConnected = false;
-                sqlConnection = new SqlConnectionStringBuilder();
-                sqlConnection.IntegratedSecurity = true;
-                DataTable table = SmoApplication.EnumAvailableSqlServers(true);
-                if (!config.AppSettings.Settings.AllKeys.Contains("SqlServerName"))
-                {
-                    if (table.Rows.Count > 1)
-                    {
-                        while (!IsConnected)
-                        {
-                            SqlServerName = Interaction.InputBox("Введите имя SQL сервера", "СКУД", "");
-                            sqlConnection = new SqlConnectionStringBuilder();
-                            sqlConnection.DataSource = SqlServerName;
-                            IsConnected = IsServerConnected(sqlConnection.ConnectionString);
-                        }
-                    }
-                    else
-                        SqlServerName = table.Rows[0][0].ToString();
-                    sqlConnection.DataSource = SqlServerName;
-                    sqlConnection.InitialCatalog = "Journal";
-                    config.AppSettings.Settings.Add("SqlServerName", SqlServerName);
-                    config.Save(ConfigurationSaveMode.Modified);
-                }
-                else
-                {
-                    sqlConnection.DataSource = config.AppSettings.Settings["SqlServerName"].Value;
-                    sqlConnection.InitialCatalog = "Journal";
-                    sqlConnection.IntegratedSecurity = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //public void GetSqlServer()
+        //{
+        //    try
+        //    {
+        //        string SqlServerName = string.Empty;
+        //        bool IsConnected = false;
+        //        sqlConnection = new SqlConnectionStringBuilder();
+        //        sqlConnection.IntegratedSecurity = true;
+        //        DataTable table = SmoApplication.EnumAvailableSqlServers(true);
+        //        if (!config.AppSettings.Settings.AllKeys.Contains("SqlServerName"))
+        //        {
+        //            if (table.Rows.Count > 1)
+        //            {
+        //                while (!IsConnected)
+        //                {
+        //                    SqlServerName = Interaction.InputBox("Введите имя SQL сервера", "СКУД", "");
+        //                    sqlConnection = new SqlConnectionStringBuilder();
+        //                    sqlConnection.DataSource = SqlServerName;
+        //                    IsConnected = IsServerConnected(sqlConnection.ConnectionString);
+        //                }
+        //            }
+        //            else
+        //                SqlServerName = table.Rows[0][0].ToString();
+        //            sqlConnection.DataSource = SqlServerName;
+        //            sqlConnection.InitialCatalog = "Journal";
+        //            config.AppSettings.Settings.Add("SqlServerName", SqlServerName);
+        //            config.Save(ConfigurationSaveMode.Modified);
+        //        }
+        //        else
+        //        {
+        //            sqlConnection.DataSource = config.AppSettings.Settings["SqlServerName"].Value;
+        //            sqlConnection.InitialCatalog = "Journal";
+        //            sqlConnection.IntegratedSecurity = true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
         public static bool IsServerConnected(string connectionString)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -155,35 +151,35 @@ namespace Skud
         //        MessageBox.Show("Устройство не подлючено", "СКУД", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         //}
 
-        private void comPort_Click(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    ToolStripMenuItem selectedItem = sender as ToolStripMenuItem;
-            //    foreach (ToolStripMenuItem item in PortToolStripMenuItem.DropDownItems)
-            //    {
-            //        item.Checked = false;
-            //    }
-            //    selectedItem.Checked = true;
-            //    config.AppSettings.Settings.Remove("SerialPort");
-            //    config.AppSettings.Settings.Add("SerialPort", selectedItem.Text);
-            //    config.Save(ConfigurationSaveMode.Modified);
-            //    if (selectedPort != null && selectedPort.IsOpen)
-            //    {
-            //        selectedPort.Dispose();
-            //        selectedPort.Close();
-            //    }
-            //    ReadFromController(selectedItem.Text);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-        }
+        //private void comPort_Click(object sender, EventArgs e)
+        //{
+        //    //try
+        //    //{
+        //    //    ToolStripMenuItem selectedItem = sender as ToolStripMenuItem;
+        //    //    foreach (ToolStripMenuItem item in PortToolStripMenuItem.DropDownItems)
+        //    //    {
+        //    //        item.Checked = false;
+        //    //    }
+        //    //    selectedItem.Checked = true;
+        //    //    config.AppSettings.Settings.Remove("SerialPort");
+        //    //    config.AppSettings.Settings.Add("SerialPort", selectedItem.Text);
+        //    //    config.Save(ConfigurationSaveMode.Modified);
+        //    //    if (selectedPort != null && selectedPort.IsOpen)
+        //    //    {
+        //    //        selectedPort.Dispose();
+        //    //        selectedPort.Close();
+        //    //    }
+        //    //    ReadFromController(selectedItem.Text);
+        //    //}
+        //    //catch (Exception ex)
+        //    //{
+        //    //    MessageBox.Show(ex.Message);
+        //    //}
+        //}
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            dataThread.Start();
+            backgroundThread.Start();
         }
 
         public void ReadFromController(string portName)
@@ -268,16 +264,16 @@ namespace Skud
             try
             {
                 JournalRecord record = new JournalRecord();
-                record = context.Journal.Where(j => j.EmployeeId == emp.Id).ToList().LastOrDefault();
+                record = context.JournalRecors.Where(j => j.EmployeeId == emp.Id).ToList().LastOrDefault();
                 if(record == null)
                 {
-                    context.Journal.Add(new JournalRecord() { EmployeeId = emp.Id, Date = DateTime.Now.Date, In = DateTime.Now });
+                    context.JournalRecors.Add(new JournalRecord() { EmployeeId = emp.Id, Date = DateTime.Now.Date, In = DateTime.Now });
                     emp.Status = true;
                     status = "Вход";
                 }
                 else if (record.Out != null) // сотрудник вышел
                 {
-                    context.Journal.Add(new JournalRecord() { EmployeeId = emp.Id, Date = DateTime.Now.Date, In = DateTime.Now }); // вход
+                    context.JournalRecors.Add(new JournalRecord() { EmployeeId = emp.Id, Date = DateTime.Now.Date, In = DateTime.Now }); // вход
                     emp.Status = true;
                     status = "Вход";
                 }

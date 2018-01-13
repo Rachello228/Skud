@@ -37,11 +37,11 @@ namespace Skud
         private void button1_Click_1(object sender, EventArgs e)
         {
             if (checkBox1.Checked && checkBox2.Checked)
-                this.dataForReportBindingSource.DataSource = new DataForReport(context, (int)comboBox1.SelectedValue, dateTimePicker1.Value.Date, dateTimePicker2.Value.Date);
+                this.dataForReportBindingSource.DataSource = new DataForReport(context, (Employee)comboBox1.SelectedItem, dateTimePicker1.Value.Date, dateTimePicker2.Value.Date);
             else if (checkBox1.Checked)
                 this.dataForReportBindingSource.DataSource = new DataForReport(context, dateTimePicker1.Value.Date, dateTimePicker2.Value.Date);
             else if (checkBox2.Checked)
-                this.dataForReportBindingSource.DataSource = new DataForReport(context, (int)comboBox1.SelectedValue);
+                this.dataForReportBindingSource.DataSource = new DataForReport(context, (Employee)comboBox1.SelectedItem);
             this.reportViewer1.RefreshReport();
         }
 
