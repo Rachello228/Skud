@@ -45,7 +45,7 @@ namespace Skud
                 if (emp.Photo != null)
                     pictureBox1.Image = emp.GetImage;
                 else
-                    pictureBox1.Image = Properties.Resources.specialist_userpng;
+                    pictureBox1.Image = Properties.Resources.specialist_user;
             }
             catch(Exception ex)
             {
@@ -123,7 +123,7 @@ namespace Skud
 
         private void улалитьФотоToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = Skud.Properties.Resources.specialist_userpng;
+            pictureBox1.Image = Skud.Properties.Resources.specialist_user;
             fileSelect = false;
             filedelete = true;
         }
