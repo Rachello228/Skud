@@ -11,6 +11,7 @@ namespace Skud
     {
         public JournalContext(string connString) : base(connString)
         {
+            //dfgdfgdfgdfgdfgdfgdfgdfg
             Database.SetInitializer(new JournalContextInitializer());
         }
         public DbSet<JournalRecord> JournalRecors { get; set; }
