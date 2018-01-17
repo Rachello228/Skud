@@ -32,11 +32,11 @@ namespace Skud
         public Main()
         {
             InitializeComponent();
+            GetSqlServer();
             dataThread = new Thread(new ThreadStart(() =>
             {
                 try
                 {
-                    GetSqlServer();
                     context = new JournalContext(sqlConnection.ConnectionString);
                     context.Employees.Load();
                     context.Journal.Load();
@@ -64,32 +64,27 @@ namespace Skud
         {
             try
             {
-                string SqlServerName = string.Empty;
-                bool IsConnected = false;
-                sqlConnection = new SqlConnectionStringBuilder();
-                sqlConnection.IntegratedSecurity = true;
-                DataTable table = SmoApplication.EnumAvailableSqlServers(true);
                 if (!config.AppSettings.Settings.AllKeys.Contains("SqlServerName"))
                 {
-                    if (table.Rows.Count > 1)
+                    string SqlServerName = string.Empty;
+                    bool IsConnected = false;
+                    while (!IsConnected)
                     {
-                        while (!IsConnected)
-                        {
-                            SqlServerName = Interaction.InputBox("Введите имя SQL сервера", "СКУД", "");
-                            sqlConnection = new SqlConnectionStringBuilder();
-                            sqlConnection.DataSource = SqlServerName;
-                            IsConnected = IsServerConnected(sqlConnection.ConnectionString);
-                        }
+                        //DataTable table = SmoApplication.EnumAvailableSqlServers(true);
+                        SqlServerName = Interaction.InputBox("Введите имя SQL сервера", "СКУД", "");
+                        sqlConnection = new SqlConnectionStringBuilder();
+                        sqlConnection.DataSource = SqlServerName;
+                        //sqlConnection.InitialCatalog = "Journal";
+                        sqlConnection.IntegratedSecurity = true;
+                        IsConnected = IsServerConnected(sqlConnection.ConnectionString);
                     }
-                    else
-                        SqlServerName = table.Rows[0][0].ToString();
-                    sqlConnection.DataSource = SqlServerName;
                     sqlConnection.InitialCatalog = "Journal";
                     config.AppSettings.Settings.Add("SqlServerName", SqlServerName);
                     config.Save(ConfigurationSaveMode.Modified);
                 }
                 else
                 {
+                    sqlConnection = new SqlConnectionStringBuilder();
                     sqlConnection.DataSource = config.AppSettings.Settings["SqlServerName"].Value;
                     sqlConnection.InitialCatalog = "Journal";
                     sqlConnection.IntegratedSecurity = true;
@@ -117,20 +112,20 @@ namespace Skud
             }
         }
 
-        public static bool IsSerialPortConnected(string port)
-        {
-            try
-            {
-                SerialPort sp = new SerialPort(port);
-                sp.Open();
-                sp.Close();
-                return true;
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
-        }
+        //public static bool IsSerialPortConnected(string port)
+        //{
+        //    try
+        //    {
+        //        SerialPort sp = new SerialPort(port);
+        //        sp.Open();
+        //        sp.Close();
+        //        return true;
+        //    }
+        //    catch (SqlException)
+        //    {
+        //        return false;
+        //    }
+        //}
 
         //public void GetAllSerialPorts()
         //{

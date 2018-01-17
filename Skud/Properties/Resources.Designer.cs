@@ -83,9 +83,9 @@ namespace Skud.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap specialist_user {
+        internal static System.Drawing.Bitmap specialist_userpng {
             get {
-                object obj = ResourceManager.GetObject("specialist-user", resourceCulture);
+                object obj = ResourceManager.GetObject("specialist-userpng", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

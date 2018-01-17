@@ -188,9 +188,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\specialist-user.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\newspaper.png" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\specialist-userpng.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
