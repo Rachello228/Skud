@@ -9,9 +9,9 @@ namespace Skud
 {
     public class JournalContext : DbContext
     {
-        public JournalContext() : base("DefaultConnection")
+        public JournalContext(string connString) : base(connString)
         {
-            //Database.SetInitializer(new JournalContextInitializer());
+            Database.SetInitializer(new JournalContextInitializer());
         }
         public DbSet<JournalRecord> JournalRecors { get; set; }
         public DbSet<Employee> Employees { get; set; }

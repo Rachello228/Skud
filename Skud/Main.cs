@@ -39,7 +39,7 @@ namespace Skud
                     GetSqlServer();
                     context = new JournalContext(sqlConnection.ConnectionString);
                     context.Employees.Load();
-                    context.Journal.Load();
+                    context.JournalRecors.Load();
                     context.Jobs.Load();
                     WqlEventQuery query = new WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent");
                     ManagementEventWatcher watcher = new ManagementEventWatcher(query);
@@ -268,16 +268,16 @@ namespace Skud
             try
             {
                 JournalRecord record = new JournalRecord();
-                record = context.Journal.Where(j => j.EmployeeId == emp.Id).ToList().LastOrDefault();
+                record = context.JournalRecors.Where(j => j.EmployeeId == emp.Id).ToList().LastOrDefault();
                 if(record == null)
                 {
-                    context.Journal.Add(new JournalRecord() { EmployeeId = emp.Id, Date = DateTime.Now.Date, In = DateTime.Now });
+                    context.JournalRecors.Add(new JournalRecord() { EmployeeId = emp.Id, Date = DateTime.Now.Date, In = DateTime.Now });
                     emp.Status = true;
                     status = "Вход";
                 }
                 else if (record.Out != null) // сотрудник вышел
                 {
-                    context.Journal.Add(new JournalRecord() { EmployeeId = emp.Id, Date = DateTime.Now.Date, In = DateTime.Now }); // вход
+                    context.JournalRecors.Add(new JournalRecord() { EmployeeId = emp.Id, Date = DateTime.Now.Date, In = DateTime.Now }); // вход
                     emp.Status = true;
                     status = "Вход";
                 }
