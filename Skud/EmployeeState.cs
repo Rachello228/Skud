@@ -25,10 +25,10 @@ namespace Skud
 
         private void button1_Click(object sender, EventArgs e)
         {
-            context.Journal.Add(new JournalRecord() { Date = DateTime.Now, EmployeeId = 5, In = DateTime.Now, Out = DateTime.Now });
+            context.JournalRecors.Add(new JournalRecord() { Date = DateTime.Now, EmployeeId = 5, In = DateTime.Now, Out = DateTime.Now });
             context.SaveChanges();
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = context.Journal.Local;
+            dataGridView1.DataSource = context.JournalRecors.Local;
         }
         
         public void LoadData(Employee empl = null)

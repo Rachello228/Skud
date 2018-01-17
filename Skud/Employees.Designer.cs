@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Employees));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.улалитьФотоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -47,22 +47,25 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.улалитьФотоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // contextMenuStrip1
             // 
-            this.pictureBox1.ContextMenuStrip = this.contextMenuStrip1;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(18, 339);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(258, 196);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 25;
-            this.pictureBox1.TabStop = false;
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.улалитьФотоToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(151, 26);
+            // 
+            // улалитьФотоToolStripMenuItem
+            // 
+            this.улалитьФотоToolStripMenuItem.Image = global::Skud.Properties.Resources.delete;
+            this.улалитьФотоToolStripMenuItem.Name = "улалитьФотоToolStripMenuItem";
+            this.улалитьФотоToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.улалитьФотоToolStripMenuItem.Text = "Улалить фото";
+            this.улалитьФотоToolStripMenuItem.Click += new System.EventHandler(this.улалитьФотоToolStripMenuItem_Click);
             // 
             // button2
             // 
@@ -206,22 +209,18 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // contextMenuStrip1
+            // pictureBox1
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.улалитьФотоToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(151, 26);
+            this.pictureBox1.ContextMenuStrip = this.contextMenuStrip1;
+            this.pictureBox1.Image = global::Skud.Properties.Resources.specialist_userpng;
+            this.pictureBox1.Location = new System.Drawing.Point(18, 339);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(258, 196);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 25;
+            this.pictureBox1.TabStop = false;
             // 
-            // улалитьФотоToolStripMenuItem
-            // 
-            this.улалитьФотоToolStripMenuItem.Image = global::Skud.Properties.Resources.delete;
-            this.улалитьФотоToolStripMenuItem.Name = "улалитьФотоToolStripMenuItem";
-            this.улалитьФотоToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.улалитьФотоToolStripMenuItem.Text = "Улалить фото";
-            this.улалитьФотоToolStripMenuItem.Click += new System.EventHandler(this.улалитьФотоToolStripMenuItem_Click);
-            // 
-            // Emploees
+            // Employees
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -243,11 +242,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Emploees";
+            this.Name = "Employees";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Сотрудники";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

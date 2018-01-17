@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,12 +27,27 @@ namespace Skud
         [ForeignKey("Job")]
         public int JobId { get; set; }
         public Job Job { get; set; }
-        public bool Status { get; set; }
+        public bool Status { get; set; } = false;
 
         public ICollection<JournalRecord> JournalRecords { get; set; }
         [NotMapped]
-        public Image GetImage { get { return byteArrayToImage(Photo); } }
-        public Image byteArrayToImage(byte[] bytesArr)
+        public Image GetImage { get { return Photo.ToImage(); } }
+
+    }
+    public static class ImageExtensions
+    {
+        public static byte[] ToByteArray(this Image image, ImageFormat format)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, format);
+                return ms.ToArray();
+            }
+        }
+    }
+    public static class ByteArrayExtensions
+    {
+        public static Image ToImage(this byte[] bytesArr)
         {
             MemoryStream memstr = new MemoryStream(bytesArr);
             Image img = Image.FromStream(memstr);
